@@ -49,18 +49,6 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         TF_VAR_subdomain: ${{ env.SUBDOMAIN }}
     
-    - name: Terraform Output
-      id: terraform
-      run: |
-        terraform output webserver_url
-        echo 000
-        curl $(terraform output webserver_url) || true
-
-    - name: Curl Call
-      run: curl $(terraform output webserver_url) || true
-    - name: Wait 10 seconds
-      run: sleep 10
-    - name: Curl Call again
-      run: |
-        curl $(terraform output webserver_url) || true
-        curl $(terraform output webserver_dns) || true
+    # curl like: curl -X POST 'http://localhost:3000/api/provisioning/admin/buffer/provisioned' -H 'Content-Type: application/json' -d '{"subdomain":"test-bopwht"}'
+    - name: Curl Call to update buffer queue
+      run: curl -X POST 'https://appmixer-mission-control.vercel.app/api/provisioning/admin/buffer/provisioned' -H 'Content-Type: application/json' -d '{"subdomain":"${{ env.SUBDOMAIN }}"}'
