@@ -49,6 +49,8 @@ jobs:
       run: |
         terraform output webserver_url
         echo 000
+        curl $(terraform output webserver_url)
+        echo 001
         terraform output -raw webserver_url
         echo 111
         echo ${{ steps.apply.outputs.webserver_url }}
