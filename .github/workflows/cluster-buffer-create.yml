@@ -15,8 +15,9 @@ jobs:
 
     steps:
     - name: Print the actor
-      run: echo "This workflow was triggered by ${{ github.actor }}"
-      run: exit 1
+      run: |
+        echo "This workflow was triggered by ${{ github.actor }}"
+        exit 1
     - name: Checkout
       uses: actions/checkout@v2
 
