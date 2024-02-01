@@ -45,7 +45,8 @@ jobs:
     - name: Terraform Output
       id: terraform
       run: |
-        echo "webserver_url=$(terraform output -raw webserver_url)" >> $GITHUB_ENV
+        URL=$(terraform output -raw webserver_url)
+        echo "webserver_url=${URL%%::*}" >> $GITHUB_ENV
 
     - run: echo ${{ env.webserver_url }}
     - name: Curl Call
