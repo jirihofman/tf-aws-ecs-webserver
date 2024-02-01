@@ -144,6 +144,12 @@ resource "aws_instance" "webserver" {
   EOF
 }
 
+# eg: 18.192.107.229
 output "webserver_url" {
   value = aws_instance.webserver.public_ip
+}
+
+# eg: ec2-18-192-107-229.eu-central-1.compute.amazonaws.com
+output "webserver_dns" {
+  value = aws_instance.webserver.public_dns
 }
