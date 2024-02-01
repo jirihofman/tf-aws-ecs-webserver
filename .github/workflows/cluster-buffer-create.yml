@@ -50,14 +50,14 @@ jobs:
         echo 000
         terraform output -raw webserver_url
         echo 111
-        echo ${{ steps.terraform.outputs.webserver_url }}
+        echo ${{ steps.apply.outputs.webserver_url }}
         echo 222
         echo $URL
 
     - name: Curl Call
-      run: curl ${{ steps.terraform.outputs.webserver_url }}
+      run: curl ${{ steps.apply.outputs.webserver_url }}
     - name: Wait 10 seconds
       run: sleep 10
     - name: Curl Call again
-      run: curl ${{ steps.terraform.outputs.webserver_url }}
+      run: curl ${{ steps.apply.outputs.webserver_url }}
 
