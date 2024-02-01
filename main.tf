@@ -140,7 +140,7 @@ resource "aws_instance" "webserver" {
     sudo yum install httpd -y
     sudo yum install mod_ssl -y
     sudo systemctl start httpd
-    sudo bash -c 'echo Congratulations! This is your Webserver Installation. ID: ${var.subdomain} HOSTNAME: $(hostname) > /var/www/html/index.html'
+    sudo bash -c 'echo Congratulations! This is your Webserver Installation. ID: ${var.subdomain}, HOSTNAME: $(hostname), ECS_CLUSTER ${aws_ecs_cluster.cluster.name} > /var/www/html/index.html'
   EOF
 }
 

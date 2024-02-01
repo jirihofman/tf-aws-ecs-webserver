@@ -20,8 +20,4 @@ curl -X POST \
 ```
 ### Updating buffer in admin application
 ```sh
-curl -X POST "<ADMIN_APP_URL>" \
--d '{
-	"subdomain": "foo",
-	"url": "https://foo.bar.com"
-}'
+curl -X POST 'http://localhost:3000/api/provisioning/admin/buffer/provisioned' -H 'Content-Type: application/json' -d '{"subdomain":"test-f49ih"}'
