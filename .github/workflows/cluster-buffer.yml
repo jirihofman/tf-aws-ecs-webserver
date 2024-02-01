@@ -43,10 +43,12 @@ jobs:
         TF_VAR_subdomain: ${{ env.SUBDOMAIN }}
     
     - name: Terraform Output
-      run: echo "::set-output name=webserver_url::$(terraform output webserver_url)"
+      id: terraform
+      run: echo "::set-output name=webserver_url::$(terraform output -raw webserver_url)"
 
     - name: Curl Call
       run: curl $(terraform output webserver_url)
+    - run: echo ${{ steps.terraform.outputs.webserver_url }}
     - name: Wait 10 seconds
       run: sleep 10
     - name: Curl Call again
