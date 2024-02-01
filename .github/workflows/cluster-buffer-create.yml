@@ -9,6 +9,8 @@ on:
 jobs:
   terraform:
     name: 'Terraform'
+    # So that this workflow is not triggered by anyone else than me
+    if: github.actor == 'jirihofman'
     runs-on: ubuntu-latest
     env:
       SUBDOMAIN: ${{ github.event.inputs.subdomain }}
@@ -17,7 +19,6 @@ jobs:
     - name: Print the actor
       run: |
         echo "This workflow was triggered by ${{ github.actor }}"
-        exit 1
     - name: Checkout
       uses: actions/checkout@v2
 

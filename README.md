@@ -9,12 +9,12 @@ Triggered manually or via GitHub API called from the admin application.
 ```sh
 curl -X POST \
   -H "Accept: application/vnd.github.v3+json" \
-  -H "Authorization: token YOUR_GITHUB_TOKEN" \
-  https://api.github.com/repos/OWNER/REPO/actions/workflows/WORKFLOW_ID_OR_FILE_NAME/dispatches \
+  -H "Authorization: token <GH_TOKEN>" \
+  https://api.github.com/repos/jirihofman/tf-aws-ecs-webserver/actions/workflows/cluster-buffer-create.yml/dispatches \
   -d '{
-    "ref": "main",
+    "ref": "master",
     "inputs": {
-      "subdomain": "YOUR_SUBDOMAIN"
+      "subdomain": "dev1"
     }
   }'
 ```
