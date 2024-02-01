@@ -1,0 +1,31 @@
+name: 'Delete provisioned infrastructure'
+on:
+  workflow_dispatch:
+    inputs:
+      subdomain:
+        description: 'Subdomain'     
+        required: true
+
+jobs:
+  aws-cli:
+    name: 'AWS CLI Delete'
+    runs-on: ubuntu-latest
+    env:
+      SUBDOMAIN: ${{ github.event.inputs.subdomain }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1  # replace with your AWS region
+
+    - name: Delete ECS Cluster
+      run: aws ecs delete-cluster --cluster jirka-cluster-${SUBDOMAIN}
+    - name: Delete EC2 Instance
+      run: aws ec2 terminate-instances --instance-ids $(aws ec2 describe-instances --filters "Name=tag:Name,Values=jirka-web-server-instance-${SUBDOMAIN}" --query "Reservations[*].Instances[*].InstanceId" --output text)
+      
