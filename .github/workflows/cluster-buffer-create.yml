@@ -1,4 +1,4 @@
-name: 'Terraform GitHub Actions'
+name: 'Create infrastructure'
 on:
   workflow_dispatch:
     inputs:
@@ -44,13 +44,14 @@ jobs:
     
     - name: Terraform Output
       id: terraform
-      run: echo "::set-output name=webserver_url::$(terraform output -raw webserver_url)"
+      run: |
+        echo "webserver_url=$(terraform output -raw webserver_url)" >> $GITHUB_ENV
 
+    - run: echo ${{ env.webserver_url }}
     - name: Curl Call
-      run: curl $(terraform output webserver_url)
-    - run: echo ${{ steps.terraform.outputs.webserver_url }}
+      run: curl ${{ env.webserver_url }}
     - name: Wait 10 seconds
       run: sleep 10
     - name: Curl Call again
-      run: curl $(terraform output webserver_url)
+      run: curl ${{ env.webserver_url }}
 
