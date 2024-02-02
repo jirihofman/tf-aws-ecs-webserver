@@ -1,4 +1,4 @@
-This repository is a part of PoC for a simple [application managing]([url](https://appmixer-mission-control.vercel.app/provisioning/admin)) automated instance provisioning and deployment.
+This repository is a part of PoC for a simple [application managing](https://appmixer-mission-control.vercel.app/provisioning/admin) automated instance provisioning and deployment.
 
 ## Terraform
 This simple module is used to create an AWS ECS cluster and service for the application.
